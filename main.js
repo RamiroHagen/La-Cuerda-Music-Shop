@@ -1,64 +1,86 @@
-// Array de productos
+
 const productos = [
-    { id: 1, nombre: "Guitarra Eléctrica", precio: 250, },
-    { id: 2, nombre: "Piano Digital", precio: 800, },
-    { id: 3, nombre: "Batería", precio: 500, },
-    { id: 4, nombre: "Micrófono", precio: 150, }
-  ];
-  
-  let carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-  
-  // Referencias al DOM
-  const productosContainer = document.getElementById("productos-container");
-  const carritoLista = document.getElementById("carrito-lista");
-  const totalSpan = document.getElementById("total");
-  const btnVaciar = document.getElementById("vaciar-carrito");
-  
-  // Mostrar productos en la tienda
+  { id: 1, nombre: "Guitarra Eléctrica", precio: 250, imagen: "img/guitarra.jpg" },
+  { id: 2, nombre: "Piano Digital", precio: 800, imagen: "img/piano.jpg" },
+  { id: 3, nombre: "Batería", precio: 500, imagen: "img/bateria.jpg" },
+  { id: 4, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" }
+];
+
+let carrito = obtenerCarritoDeStorage() || [];
+const productosContainer = document.getElementById("productos-container");
+const carritoLista = document.getElementById("carrito-lista");
+const totalSn = document.getElementById("total");
+const botonVaciar = document.getElementById("vaciar-carrito");
+
+function renderizarProductos() {
+  productosContainer.innerHTML = "";
   productos.forEach(producto => {
     const div = document.createElement("div");
     div.classList.add("producto");
     div.innerHTML = `
-      <h2>${producto.nombre}</h2>
-      <img src="${producto.imagen}" alt="${producto.nombre}" class="producto-img">
-      <p>$${producto.precio}</p>
-      <button data-id="${producto.id}">Agregar al carrito</button>
-    `;
+                      <div class="card" style="width: 18rem;">
+                        <img src="${producto.imagen}" class="card-img-top" alt="${producto.nombre}">
+                        <div class="card-body">
+                          <h5 class="card-title">${producto.nombre}</h5>
+                          <p class="card-text">${producto.precio}</p>
+                          <button onclick="agregarAlCarrito(${producto.id})" class="btn btn-primary"> Agregar al carrito </button>
+                        </div>
+                      </div> 
+                    `;
     productosContainer.appendChild(div);
   });
-  
-  // Evento para agregar productos al carrito
-  productosContainer.addEventListener("click", e => {
-    if (e.target.tagName === "BUTTON") {
-      const id = parseInt(e.target.dataset.id);
-      const producto = productos.find(p => p.id === id);
-      carrito.push(producto);
-      actualizarCarrito();
-    }
-  });
-  
-  // Evento para vaciar carrito
-  btnVaciar.addEventListener("click", () => {
-    carrito = [];
-    actualizarCarrito();
-  });
-  
-  // Actualizar el carrito y guardar en LocalStorage
-  function actualizarCarrito() {
-    carritoLista.innerHTML = "";
-    let total = 0;
-  
-    carrito.forEach((producto, index) => {
-      const li = document.createElement("li");
-      li.textContent = `${producto.nombre} - $${producto.precio}`;
-      carritoLista.appendChild(li);
-      total += producto.precio;
-    });
-  
-    totalSpan.textContent = total;
-    localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function agregarAlCarrito(idProducto) {
+  const producto = productos.find(p => p.id === idProducto);
+  if (producto) {
+    carrito.push(producto);
+    guardarCarritoEnStorage();
+    actualizarCarritoUI();
   }
-  
-  // Mostrar carrito inicial (si hay en LocalStorage)
-  actualizarCarrito();
-  
+}
+
+function eliminarProducto(index) {
+  carrito.splice(index, 1);
+  guardarCarritoEnStorage();
+  actualizarCarritoUI();
+}
+
+function vaciarCarrito() {
+  carrito = [];
+  guardarCarritoEnStorage();
+  actualizarCarritoUI();
+}
+
+function actualizarCarritoUI() {
+  carritoLista.innerHTML = "";
+  let total = 0;
+
+  carrito.forEach((producto, index) => {
+    const li = document.createElement("li");
+    li.innerHTML = `
+                    ${producto.nombre} - $${producto.precio}
+                    <button onclick="eliminarProducto(${index})">❌</button>
+                   `;
+    carritoLista.appendChild(li);
+    total += producto.precio;
+  });
+
+  totalSn.textContent = total;
+}
+
+function guardarCarritoEnStorage() {
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+}
+
+function obtenerCarritoDeStorage() {
+  return JSON.parse(localStorage.getItem("carrito"));
+}
+
+botonVaciar.addEventListener("click", vaciarCarrito);
+
+
+
+
+renderizarProductos();
+actualizarCarritoUI();
