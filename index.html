@@ -9,19 +9,57 @@
   <body>
     <nav>
       <h1>La Cuerda.</h1>
+
+      <ul class="nav nav-pills nav-fill">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="#">INICIO</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">PRODUCTOS</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">CONTACTO</a>
+        </li>
+      </ul>
     </nav>
 
     <main>
-      <section id="productos-container">
-        
-      </section>
+      <div class="">
 
-      <aside id="carrito">
-        <h2>Carrito</h2>
-        <ul id="carrito-lista"></ul>
-        <p>Total: $<span id="total">0</span></p>
-        <button id="vaciar-carrito">Vaciar</button>
-      </aside>
+        <div id="carouselExample" class="carousel slide Carro">
+
+          <div class="carousel-inner Carro">
+            <div class="carousel-item active">
+              <img src="..." class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="..." class="d-block w-100" alt="...">
+            </div>
+      
+          </div>
+  
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+  
+        </div>
+
+          <section id="productos-container">
+            
+          </section>
+
+          <div id="carrito">
+            <h2>Carrito</h2>
+            <ul id="carrito-lista"></ul>
+            <p>Total: $<span id="total">0</span></p>
+            <button id="vaciar-carrito">Vaciar</button>
+          </div>
+      </div>
     </main>
 
     <script src="main.js"></script>

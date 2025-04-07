@@ -3,7 +3,12 @@ const productos = [
   { id: 1, nombre: "Guitarra Eléctrica", precio: 250, imagen: "img/guitarra.jpg" },
   { id: 2, nombre: "Piano Digital", precio: 800, imagen: "img/piano.jpg" },
   { id: 3, nombre: "Batería", precio: 500, imagen: "img/bateria.jpg" },
-  { id: 4, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" }
+  { id: 4, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" },
+  { id: 5, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" },
+  { id: 6, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" },
+  { id: 7, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" },
+  { id: 8, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" },
+  { id: 9, nombre: "Micrófono", precio: 150, imagen: "img/microfono.jpg" }
 ];
 
 let carrito = obtenerCarritoDeStorage() || [];
